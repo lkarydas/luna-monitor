@@ -1,13 +1,24 @@
+import datetime
 import logging
 import firebase_admin
+
 from firebase_admin import credentials
 from firebase_admin import messaging
+from firebase_admin import db
 
 class FCM_Client(object):
 
-  def __init__(self, service_account_key):
+  def __init__(self, service_account_key, database_url):
     cred = credentials.Certificate(service_account_key)
-    firebase_admin.initialize_app(cred)
+    firebase_admin.initialize_app(cred,
+                                  {'databaseURL': database_url})
+
+  def write_to_database(self):
+    ref = db.reference('/')
+    timestamp = datetime.datetime.now().strftime("%Y%m%dT%H%M%S") 
+    ref.child('bilge').child('event').push(
+      {'timestamp': timestamp,
+       'bilge_event': 3})
 
   def send_notification(self, device_token, title, body):
       message = messaging.Message(
