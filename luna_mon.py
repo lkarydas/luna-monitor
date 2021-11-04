@@ -9,7 +9,6 @@ import fcm_client
 FLAGS = flags.FLAGS
 flags.DEFINE_string('service_account_key', None, 'The path to the service account key')
 flags.DEFINE_string('log_file', 'fcm_logs.log', 'The path to the log file.')
-flags.DEFINE_string('token', '', 'The registration token to send to.')
 flags.DEFINE_string('database_url', None, 'The URL to the FCM realtime database.')
 flags.register_validator('service_account_key', lambda value: value,
                          message='Must pass a service account key.')
@@ -32,10 +31,10 @@ def main(argv):
   root_logger.addHandler(file_handler)
 
   fcm = fcm_client.FCM_Client(FLAGS.service_account_key, FLAGS.database_url)
-  # fcm.send_notification(FLAGS.token, 'hello world', 'This a great notification'
-  #                      ' that says hello to the whole world')
-  # send_message(TOKEN)
-  fcm.write_to_database()
+  fcm.send_notification('hello world', 'This a great notification that says'
+                        'hello.')
+  #fcm.send_message()
+  # fcm.write_to_database()
 
 if __name__ == "__main__":
   app.run(main)
