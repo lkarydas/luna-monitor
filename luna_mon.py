@@ -33,7 +33,7 @@ def main(argv):
   fcm = fcm_client.FCM_Client(FLAGS.service_account_key, FLAGS.database_url)
   fcm.send_notification('hello world', 'This a great notification that says'
                         'hello.')
-  #fcm.send_message()
+  # fcm.send_message()
   # fcm.write_to_database()
 
 if __name__ == "__main__":

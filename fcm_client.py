@@ -32,6 +32,7 @@ class FCM_Client(object):
        'bilge_event': 3})
 
   def send_notification(self, title, body):
+      logging.info('Sending notification. Title: %s', title)
       message = messaging.MulticastMessage(
          notification=messaging.Notification(
                  title=title,
